@@ -1,280 +1,166 @@
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@800&display=swap');
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Arial", sans-serif;
 }
 
-body {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url(../images/image/wallpaperflare.com_wallpaper\ -\ 2023-09-11T011115.947.jpg);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #ffffff;
-    min-height: 100vh;
-}
-
-.admin-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.header {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 20px;
-    border-radius: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.header h1 {
-    color: #e0e0e0;
-    text-align: center;
-    font-size: 3.5rem;
-    font-weight: 800;
-    font-family: 'Gothic A1', sans-serif;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-}
-
-.users-table {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.users-table-content {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.users-table-content-header {
-    background-color: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(5px);
-    color: #00000079;
-    padding: 15px;
-    text-align: left;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.9em;
-    letter-spacing: 1px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.users-table-content tr {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.users-table-content tr:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.users-table-content td {
-    padding: 15px;
-    color: #ffffff;
-}
-
-.edit-btn, .delete-btn, .make-admin-btn, .remove-admin-btn {
-    display: inline-block;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 500;
-    margin-right: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.edit-btn {
-    background-color: rgba(52, 152, 219, 0.9);
-    color: #ffffff;
-}
-
-.delete-btn {
-    background-color: rgba(231, 76, 60, 0.9);
-    color: #ffffff;
-}
-
-.make-admin-btn {
-    background-color: rgba(46, 204, 113, 0.9);
-    color: #ffffff;
-}
-
-.remove-admin-btn {
-    background-color: rgba(241, 196, 15, 0.9);
-    color: #ffffff;
-}
-
-.edit-btn:hover, .delete-btn:hover, .make-admin-btn:hover, .remove-admin-btn:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.profile-link {
-    display: block;
-    width: fit-content;
-    margin: 30px auto;
-    padding: 12px 25px;
-    background-color: rgba(155, 89, 182, 0.9);
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: 500;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
-
-.profile-link:hover {
-    background-color: rgba(142, 68, 173, 0.9);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-.add-user-btn {
-    display: block;
-    width: fit-content;
-    margin: 20px auto;
-    padding: 12px 25px;
-    background-color: rgba(46, 204, 113, 0.9);
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: 500;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.add-user-btn:hover {
-    background-color: rgba(39, 174, 96, 0.9);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Responsive styles for the add user button */
-@media screen and (max-width: 768px) {
-    .add-user-btn {
-        padding: 10px 20px;
-        font-size: 0.9em;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .add-user-btn {
-        width: 90%;
-        padding: 10px;
-        font-size: 0.85em;
-    }
-}
-
-.add-user-body {
+.register-page {
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../images/image/wallpaperflare.com_wallpaper\ -\ 2024-05-13T163020.738.jpg") ;
+    background-size: cover;
+    background-position: center;
 }
 
-.add-user-form-container {
-    background-color: rgba(255, 255, 255, 0.1);
+.login-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../images/image/wallpaperflare.com_wallpaper.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.register-container {
+    background: rgba(255, 255, 255, 0);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    width: 100%;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    width: 90%;
     max-width: 500px;
 }
 
-.add-user-form {
+.register-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
 }
 
-.add-user-form-label {
-    color: #ffffff;
-    font-size: 1.1em;
-    font-weight: 500;
-    margin-bottom: 5px;
+.login-container {
+    background: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    width: 90%;
+    max-width: 400px;
 }
 
-.add-user-form-input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    font-size: 1em;
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-.add-user-form-input:focus {
-    outline: none;
-    border-color: rgba(255, 255, 255, 0.4);
-    background-color: rgba(255, 255, 255, 0.15);
+h1 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
 }
 
-.add-user-form-input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.add-user-form-button {
-    background-color: rgba(46, 204, 113, 0.9);
-    color: #ffffff;
-    padding: 12px 25px;
+.form-group-register {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+}
+
+.form-group-button {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+}
+
+.form-group-button:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+label {
+    color: #fff;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+label:hover {
+    transform: translateX(5px);
+}
+
+input {
+    padding: 0.8rem;
     border: none;
     border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: 500;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    transform: scale(1.02);
+}
+
+button {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    background: #4caf50;
+    color: white;
+    font-size: 1.1rem;
     cursor: pointer;
-    margin-top: 10px;
+    transition: all 0.3s ease;
 }
 
-.add-user-form-button:hover {
-    background-color: rgba(39, 174, 96, 0.9);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+button:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive styles for the add user form */
-@media screen and (max-width: 768px) {
-    .add-user-form-container {
-        padding: 30px;
-    }
-    
-    .add-user-form-input {
-        padding: 10px 12px;
-    }
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-@media screen and (max-width: 480px) {
-    .add-user-form-container {
-        padding: 20px;
-    }
-    
-    .add-user-form-label {
-        font-size: 1em;
-    }
-    
-    .add-user-form-input {
-        padding: 8px 10px;
-    }
-    
-    .add-user-form-button {
-        padding: 10px 20px;
-        font-size: 1em;
-    }
-} 
+.form-group-button-link {
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.form-group-button-link:hover {
+    color: #4caf50;
+    text-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+}
+
+.error-message {
+    color: red;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.success-message {
+    color: green;
+    font-size: 1rem;
+    text-align: center;
+}
