@@ -1,0 +1,234 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+}
+
+.register-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../images/image/wallpaperflare.com_wallpaper\ -\ 2024-05-13T163020.738.jpg") ;
+    background-size: cover;
+    background-position: center;
+    animation: fadeIn 1.5s ease-out;
+}
+.login-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../images/image/wallpaperflare.com_wallpaper.jpg");
+    background-size: cover;
+    background-position: center;
+    animation: fadeIn 1.5s ease-out;
+}
+.register-container {
+    background: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    width: 90%;
+    max-width: 500px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+
+.login-container {
+    background: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    width: 90%;
+    max-width: 400px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    animation: slideIn 1s ease-out;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    animation: fadeIn 1s ease-out;
+    animation-fill-mode: both;
+}
+.form-group-register 
+{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    animation: fadeIn 1s ease-out;
+    animation-fill-mode: both;
+}
+.form-group-button {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    animation: fadeIn 1s ease-out;
+    animation-fill-mode: both;
+    
+}
+.form-group-button:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+
+.form-group:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+label {
+    color: #fff;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+label:hover {
+    transform: translateX(5px);
+}
+
+input {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    transform: scale(1.02);
+}
+
+button {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    background: #4caf50;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: fadeIn 1s ease-out;
+    animation-delay: 0.4s;
+    animation-fill-mode: both;
+}
+
+button:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.form-group-button-link {
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.form-group-button-link:hover {
+    color: #4caf50;
+    text-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+    transform: scale(1.05);
+}
+
+.error-message {
+        color: red;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.success-message {
+    color: green;
+    font-size: 1rem;
+    text-align: center;
+}
+
+
+
+
+
+
+
