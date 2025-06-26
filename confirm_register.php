@@ -6,10 +6,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm-password'];
     $email = $_POST['email'];
-    $query = "SELECT * FROM users WHERE email = '$email'";
+    $query = "SELECT * FROM users WHERE email = '$email' AND username = '$username'";
     $result = mysqli_query($conn, $query);
     if (mysqli_num_rows($result) > 0) {
-        $_SESSION['error'] = "Email already  exists.";
+        $_SESSION['error'] = "Email or username already  exists.";
         header("Location: register.php");
         exit();
     }

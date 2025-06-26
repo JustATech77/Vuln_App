@@ -14,20 +14,18 @@ session_start();
 <body class="register-page">
     <div class="register-container">
         <h1>Register a new account </h1>
-        <?php
-        if (isset($_SESSION['error'])) {
-            echo '<div class="error-message">';
-            echo '<p>' . $_SESSION['error'] . '</p>';
-            echo '</div>';
-            unset($_SESSION['error']);
-        }
-        if (isset($_SESSION['success'])) {
-            echo '<div class="success-message">';
-            echo '<p>' . $_SESSION['success'] . '</p>';
-            echo '</div>';
-            unset($_SESSION['success']);
-        }
-        ?>
+        <?php if (isset($_SESSION['error'])){ ?>
+            <div class="error-message">
+                <?php echo $_SESSION['error']; ?>
+                <?php unset($_SESSION['error']); ?>
+            </div>
+        <?php  }?>
+        <?php if (isset($_SESSION['success'])){ ?>
+            <div class="success-message">
+                <?php echo $_SESSION['success']; ?>
+                <?php unset($_SESSION['success']); ?>
+            </div>
+        <?php  }?>
         <div class="register-form">
             <form action="confirm_register.php" method="POST">
                 <div class="form-group-register">
