@@ -1,0 +1,51 @@
+/* Edit User Page Styles */
+.edit-form {
+    max-width: 400px;
+    margin: 40px auto;
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.edit-form label {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+.edit-form input[type="text"], .edit-form input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+.edit-form input[type="file"] {
+    margin-bottom: 18px;
+}
+.edit-form button {
+    background: #007bff;
+    color: #fff;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.edit-form button:hover {
+    background: #0056b3;
+}
+.edit-form img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 2px solid #fff;
+}
+.error-message {
+    color: #ff0033;
+    margin-bottom: 15px;
+    text-align: center;
+} 
