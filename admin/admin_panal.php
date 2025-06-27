@@ -20,11 +20,11 @@ $result_of_users = mysqli_query($conn, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="admin_panel.css">
+
 </head>
 
-<body>
+<body class="admin-body">
     <div class="admin-container">
         <div class="header">
             <h1>Admin Panel</h1>
@@ -47,6 +47,7 @@ $result_of_users = mysqli_query($conn, $query);
                     echo "<td>" . $row['email'] . "</td>";
                     echo "<td>" . ($row['is_admin'] == 1 ? 'Admin' : 'User') . "</td>";
                     echo "<td>
+                                <a href='edit_user.php?id=" . $row['id'] . "' class='edit-btn'>Edit</a>
                                 <a href='delete_user.php?id=" . $row['id'] . "' class='delete-btn' onclick='return confirm(\"Are you sure you want to delete this user?\")'>Delete</a>";
                     if ($row['is_admin'] == 0) {
                         echo "<a href='make_admin.php?id=" . $row['id'] . "' class='make-admin-btn' onclick='return confirm(\"Are you sure you want to make this user an admin?\")'>Make Admin</a>";

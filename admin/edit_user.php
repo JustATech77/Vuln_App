@@ -13,6 +13,28 @@ if (!isset($_GET['id'])) {
 
 $user_id = intval($_GET['id']);
 
+// Function to get profile image path
+function getProfileImagePath($profile_image)
+{
+    if (empty($profile_image)) {
+        return false;
+    }
+
+    // Check admin profile images first
+    $adminPath = 'Profile_image/' . $profile_image;
+    if (file_exists($adminPath)) {
+        return $adminPath;
+    }
+
+    // Check user profile images
+    $userPath = '../user/Profile_image/' . $profile_image;
+    if (file_exists($userPath)) {
+        return $userPath;
+    }
+
+    return false;
+}
+
 // Fetch user data
 $query = "SELECT * FROM users WHERE id = $user_id";
 $result = mysqli_query($conn, $query);
@@ -22,8 +44,37 @@ if (!$user) {
     exit();
 }
 
+// Handle delete profile image
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_profile_image'])) {
+    $profile_image = $user['profile_image'];
+
+    if (!empty($profile_image)) {
+        // Try to delete from admin folder
+        $adminPath = 'Profile_image/' . $profile_image;
+        if (file_exists($adminPath)) {
+            unlink($adminPath);
+        }
+
+        // Try to delete from user folder
+        $userPath = '../user/Profile_image/' . $profile_image;
+        if (file_exists($userPath)) {
+            unlink($userPath);
+        }
+
+        // Update database to remove profile image
+        $update = "UPDATE users SET profile_image = NULL WHERE id = $user_id";
+        if (mysqli_query($conn, $update)) {
+            $_SESSION['success_message'] = 'Profile image deleted successfully';
+            header('Location: ../user/users_list.php');
+            exit();
+        } else {
+            $error = 'An error occurred while deleting the image.';
+        }
+    }
+}
+
 // Update data on save
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete_profile_image'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $profile_image = $user['profile_image'];
@@ -42,15 +93,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $targetPath = $uploadDir . $newFileName;
             if (move_uploaded_file($file['tmp_name'], $targetPath)) {
                 // Delete old image if exists
-                if (!empty($profile_image) && file_exists($uploadDir . $profile_image)) {
-                    unlink($uploadDir . $profile_image);
+                if (!empty($profile_image)) {
+                    // Try to delete from admin folder
+                    $adminPath = 'Profile_image/' . $profile_image;
+                    if (file_exists($adminPath)) {
+                        unlink($adminPath);
+                    }
+
+                    // Try to delete from user folder
+                    $userPath = '../user/Profile_image/' . $profile_image;
+                    if (file_exists($userPath)) {
+                        unlink($userPath);
+                    }
                 }
                 $profile_image = $newFileName;
             }
         }
     }
 
-        $update = "UPDATE users SET username='$username', email='$email', profile_image='$profile_image' WHERE id=$user_id";
+    $update = "UPDATE users SET username='$username', email='$email', profile_image='$profile_image' WHERE id=$user_id";
     if (mysqli_query($conn, $update)) {
         $_SESSION['success_message'] = 'User data updated successfully';
         header('Location: ../user/users_list.php');
@@ -67,7 +128,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User</title>
-    <link rel="stylesheet" href="../css/user_list.css">
     <link rel="stylesheet" href="edit_user.css">
 </head>
 
@@ -77,8 +137,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Edit User</h1>
         </div>
         <form class="edit-form" method="post" enctype="multipart/form-data">
-            <?php if (!empty($user['profile_image']) && file_exists('Profile_image/' . $user['profile_image'])): ?>
-                <img src="Profile_image/<?php echo $user['profile_image']; ?>" alt="Profile Image" />
+            <?php
+            $profileImagePath = getProfileImagePath($user['profile_image']);
+            if ($profileImagePath): ?>
+                <img src="<?php echo $profileImagePath; ?>" alt="Profile Image" />
+                <br><br>
+                <button type="submit" name="delete_profile_image" class="delete-profile-btn" onclick="return confirm('Are you sure you want to delete this profile image?')">Delete Profile Image</button>
+                <br><br>
             <?php else: ?>
                 <img class="default-avatar" src="https://ui-avatars.com/api/?name=<?php echo urlencode($user['username']); ?>&background=007bff&color=fff&size=200" alt="No Image" />
             <?php endif; ?>
