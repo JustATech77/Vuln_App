@@ -1,0 +1,597 @@
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../../image/bat/wallpaperflare.com_wallpaper\ \(4\).jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-size: 3.5rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    font-weight: 800;
+    font-family: 'Gothic A1', sans-serif;
+    letter-spacing: 4px;
+    padding: 20px 0;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #ffffff, #e0e0e0, #ffffff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.prle-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-info {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-info h2 {
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-size: 2rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.profile-info p {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin: 15px 0;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-actions {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.logout-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: rgba(231, 76, 60, 0.9);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: rgba(192, 57, 43, 0.9);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.profile-info input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-info input[type="file"]:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.profile-info input[type="file"]::file-selector-button {
+    padding: 8px 16px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgba(52, 152, 219, 0.9);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-info input[type="file"]::file-selector-button:hover {
+    background-color: rgba(41, 128, 185, 0.9);
+}
+
+.profile-info button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(52, 152, 219, 0.9);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.profile-info button[type="submit"]:hover {
+    background-color: rgba(41, 128, 185, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.upload-message {
+    margin-top: 15px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid;
+    animation: slideInDown 0.5s ease-out;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.upload-message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+}
+
+.upload-message.success {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.9), rgba(39, 174, 96, 0.9));
+    border-color: rgba(46, 204, 113, 0.8);
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.upload-message.success::after {
+    content: '✓';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    font-weight: bold;
+    animation: checkmark 0.6s ease-in-out;
+}
+
+.upload-message.error {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.9), rgba(192, 57, 43, 0.9));
+    border-color: rgba(231, 76, 60, 0.8);
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.upload-message.error::after {
+    content: '✗';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    font-weight: bold;
+    animation: errorMark 0.6s ease-in-out;
+}
+
+.delete-profile-btn {
+    display: block;
+    margin: 24px auto 0 auto;
+    padding: 13px 48px;
+    background: linear-gradient(90deg, #ff5858 0%, #e74c3c 100%);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.08rem;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(231,76,60,0.10);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.18s;
+    outline: none;
+    width: auto;
+    min-width: 180px;
+    letter-spacing: 0.5px;
+}
+
+.delete-profile-btn:hover {
+    background: linear-gradient(90deg, #c0392b 0%, #ff5858 100%);
+    box-shadow: 0 6px 24px rgba(231,76,60,0.18);
+    transform: scale(1.045);
+}
+
+.edit-profile-section {
+    margin-top: 30px;
+    padding: 32px 32px 24px 32px;
+    background-color: rgba(255,255,255,0.13);
+    border-radius: 16px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    border: 1px solid rgba(255,255,255,0.18);
+}
+
+.edit-profile-section h3 {
+    color: #fff;
+    margin-bottom: 32px;
+    font-size: 2rem;
+    text-align: left;
+    font-weight: bold;
+}
+
+.edit-profile-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.edit-profile-section label {
+    color: #fff;
+    margin-bottom: 7px;
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.edit-profile-section input[type="text"],
+.edit-profile-section input[type="email"],
+.edit-profile-section input[type="password"] {
+    padding: 13px 16px;
+    border-radius: 7px;
+    border: 1.5px solid #bbb;
+    background: rgba(255,255,255,0.18);
+    color: #222;
+    font-size: 1.08rem;
+    transition: border 0.2s, box-shadow 0.2s;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit-profile-section input[type="text"]:focus,
+.edit-profile-section input[type="email"]:focus,
+.edit-profile-section input[type="password"]:focus {
+    border: 1.5px solid #007bff;
+    box-shadow: 0 0 8px rgba(0,123,255,0.18);
+    background: #fff;
+}
+
+.edit-profile-section input[type="text"]::placeholder,
+.edit-profile-section input[type="email"]::placeholder,
+.edit-profile-section input[type="password"]::placeholder {
+    color: #aaa;
+    font-size: 1rem;
+}
+
+.edit-profile-section button[type="submit"] {
+    padding: 15px 0;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.15rem;
+    margin-top: 18px;
+    transition: background 0.2s, box-shadow 0.2s;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(40,167,69,0.08);
+}
+
+.edit-profile-section button[type="submit"]:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 16px rgba(40,167,69,0.18);
+}
+
+.add-post-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.add-post-section h3 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.add-post-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-post-section textarea {
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+    background-color: rgba(255,255,255,0.15);
+    color: #fff;
+    backdrop-filter: blur(2px);
+    transition: all 0.3s ease;
+}
+
+.add-post-section textarea::placeholder {
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+}
+
+.add-post-section textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.add-post-btn {
+    display: block;
+    margin: 18px auto 0 auto;
+    padding: 13px 48px;
+    background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.08rem;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(40,167,69,0.10);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.18s;
+    outline: none;
+    width: auto;
+    min-width: 180px;
+    letter-spacing: 0.5px;
+}
+
+.add-post-btn:hover {
+    background: linear-gradient(90deg, #11998e 0%, #38f9d7 100%);
+    box-shadow: 0 6px 24px rgba(40,167,69,0.18);
+    transform: scale(1.045);
+}
+
+.profile-image-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgb(255, 0, 43);
+}
+
+.upload-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-form input[type="file"] {
+    margin-bottom: 10px;
+}
+
+.upload-form button[type="submit"] {
+    margin-top: 10px;
+}
+
+.user-list-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: rgba(52, 152, 219, 0.9);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.user-list-btn:hover {
+    background-color: rgba(41, 128, 185, 0.9);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.admin-panel-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.admin-panel-link a {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.admin-panel-link a:hover {
+    background-color: #0056b3;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes checkmark {
+    0% {
+        transform: translateY(-50%) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-50%) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes errorMark {
+    0% {
+        transform: translateY(-50%) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-50%) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.upload-message:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .upload-message {
+        font-size: 14px;
+        padding: 12px 16px;
+    }
+    
+    .upload-message::after {
+        right: 10px;
+        font-size: 16px;
+    }
+}
+
+
+/* View Post Section Styling */
+.view-post-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.view-post-section h3 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.view-post-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.view-post-btn {
+    display: block;
+    margin: 18px auto 0 auto;
+    padding: 13px 48px;
+    background: linear-gradient(90deg, #17a2b8 0%, #138496 100%);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.08rem;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(23, 162, 184, 0.15);
+    transition: all 0.3s ease;
+    outline: none;
+    width: auto;
+    min-width: 180px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.view-post-btn:hover {
+    background-color: rgba(155, 89, 182, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.home-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(46, 204, 113, 0.9);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+.home-btn:hover {
+    background-color: rgba(39, 174, 96, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
