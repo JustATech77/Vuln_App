@@ -6,6 +6,28 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
+// Function to get profile image path
+function getProfileImagePath($profile_image)
+{
+    if (empty($profile_image)) {
+        return false;
+    }
+
+    // Check admin profile images first
+    $adminPath = '../admin/Profile_image/' . $profile_image;
+    if (file_exists($adminPath)) {
+        return $adminPath;
+    }
+
+    // Check user profile images
+    $userPath = 'Profile_image/' . $profile_image;
+    if (file_exists($userPath)) {
+        return $userPath;
+    }
+
+    return false;
+}
+
 // Get user data from database
 $query = "SELECT * FROM users WHERE username = '$_SESSION[username]'";
 $result = mysqli_query($conn, $query);
@@ -111,54 +133,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_profile_image']
     $_SESSION['profile_success_message'] = "Profile image deleted successfully";
 }
 
-// Handle file uploads
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['files'])) {
-    $uploadDir = "Uploads/";
-    if (!file_exists($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-    $files = $_FILES['files'];
-    $file_name = $files['name'];
-    $file_tmp_name = $files['tmp_name'];
-    $file_size = $files['size'];
-    $file_error = $files['error'];
-    $file_type = $files['type'];
-    $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-    $allowedTypes = array("jpg", "jpeg", "png", "gif", "pdf", "doc", "docx", "txt");
-    $maxFileSize = 1 * 1024 * 1024; // 1MB
-
-    // Check file type first
-    if (!in_array($file_ext, $allowedTypes)) {
-        $_SESSION['error_message'] = "File type not allowed";
-    }
-    // Check file size
-    elseif ($file_size > $maxFileSize) {
-        $_SESSION['error_message'] = "File size exceeds the maximum allowed size of 1MB";
-    }
-    // If all checks pass, proceed with upload
-    else {
-        $fileName = uniqid() . '.' . $file_ext;
-        $targetFilePath = $uploadDir . $fileName;
-
-        if (move_uploaded_file($file_tmp_name, $targetFilePath)) {
-            $_SESSION['success_message'] = "File uploaded successfully";
-        } else {
-            $_SESSION['error_message'] = "File upload failed";
-        }
-    }
-    // Redirect to prevent form resubmission on refresh
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
-
 // Get messages from session and clear them
 $profile_success_message = isset($_SESSION['profile_success_message']) ? $_SESSION['profile_success_message'] : null;
 $profile_error_message = isset($_SESSION['profile_error_message']) ? $_SESSION['profile_error_message'] : null;
-$success_message = isset($_SESSION['success_message']) ? $_SESSION['success_message'] : null;
-$error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : null;
 
 // Clear messages after getting them
-unset($_SESSION['profile_success_message'], $_SESSION['profile_error_message'], $_SESSION['success_message'], $_SESSION['error_message']);
+unset($_SESSION['profile_success_message'], $_SESSION['profile_error_message']);
+
 
 ?>
 
@@ -168,31 +149,33 @@ unset($_SESSION['profile_success_message'], $_SESSION['profile_error_message'], 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="users.css">
+    <link rel="stylesheet" href="css/user.css">
     <title>profile</title>
 </head>
 
 <body>
     <div class="container">
         <h1>Welcome <?php echo $_SESSION['username']; ?></h1>
-        <div class="profile-container">
+        <div class="prle-container">
             <div class="profile-info">
                 <h2>Profile Information</h2>
 
                 <!-- Display current profile image if exists -->
-                <?php if (isset($current_profile_image) && file_exists("Profile_image/" . $current_profile_image)) { ?>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="Profile_image/<?php echo $current_profile_image; ?>" alt="Profile Image" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 3px solidrgb(255, 0, 43);">
+                <?php
+                $profileImagePath = getProfileImagePath($current_profile_image);
+                if ($profileImagePath): ?>
+                    <div class="profile-image-container">
+                        <img src="<?php echo $profileImagePath; ?>" alt="Profile Image" class="profile-image">
                         <br><br>
-                        <form method="post" style="display: inline;">
-                            <button type="submit" name="delete_profile_image" class="delete-profile-btn" style="display: inline-block; padding: 15px 40px; background-color: rgb(255, 0, 43); color: white; text-decoration: none; border-radius: 10px; font-weight: 500; border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer;">Delete Profile Image</button>
+                        <form method="post">
+                            <button type="submit" name="delete_profile_image" class="delete-profile-btn">Delete Profile Image</button>
                         </form>
                     </div>
-                <?php } ?>
+                <?php endif; ?>
 
-                <form method="post" enctype="multipart/form-data" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <form method="post" enctype="multipart/form-data" class="upload-form">
                     <input type="file" name="profile_image" id="profile_image" accept="jpg,jpeg,png,gif">
-                    <button type="submit" name="upload_profile" style="margin-top: 10px;">Upload Profile Image</button>
+                    <button type="submit" name="upload_profile">Upload Profile Image</button>
                     <?php if (isset($profile_success_message)) { ?>
                         <p class="upload-message success"><?php echo $profile_success_message; ?></p>
                     <?php } ?>
@@ -205,58 +188,66 @@ unset($_SESSION['profile_success_message'], $_SESSION['profile_error_message'], 
                 <p>Email: <?php echo $_SESSION['email']; ?></p>
 
                 <!-- Edit Profile Form -->
-                <div class="edit-profile-section" style="margin-top: 30px; padding: 20px; background-color: rgba(255, 255, 255, 0.1); border-radius: 10px;">
-                    <h3 style="color: white; margin-bottom: 20px;">Edit Profile</h3>
-                    <form method="post" style="display: flex; flex-direction: column; gap: 15px;">
-                        <div style="display: flex; flex-direction: column;">
-                            <label for="username" style="color: white; margin-bottom: 5px;">Username:</label>
-                            <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($user_data['username']); ?>" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                <div class="edit-profile-section">
+                    <h3>Edit Profile</h3>
+                    <form method="post">
+                        <div>
+                            <label for="username">Username:</label>
+                            <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($user_data['username']); ?>" required>
                         </div>
 
-                        <div style="display: flex; flex-direction: column;">
-                            <label for="email" style="color: white; margin-bottom: 5px;">Email:</label>
-                            <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($user_data['email']); ?>" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        <div>
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($user_data['email']); ?>" required>
                         </div>
 
-                        <div style="display: flex; flex-direction: column;">
-                            <label for="current_password" style="color: white; margin-bottom: 5px;">Current Password:</label>
-                            <input type="password" name="current_password" id="current_password" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        <div>
+                            <label for="current_password">Current Password:</label>
+                            <input type="password" name="current_password" id="current_password" required>
                         </div>
 
-                        <div style="display: flex; flex-direction: column;">
-                            <label for="new_password" style="color: white; margin-bottom: 5px;">New Password:</label>
-                            <input type="password" name="new_password" id="new_password" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        <div>
+                            <label for="new_password">New Password:</label>
+                            <input type="password" name="new_password" id="new_password">
                         </div>
 
-                        <div style="display: flex; flex-direction: column;">
-                            <label for="confirm_password" style="color: white; margin-bottom: 5px;">Confirm New Password:</label>
-                            <input type="password" name="confirm_password" id="confirm_password" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        <div>
+                            <label for="confirm_password">Confirm New Password:</label>
+                            <input type="password" name="confirm_password" id="confirm_password">
                         </div>
 
-                        <button type="submit" name="update_profile" style="padding: 12px 30px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px;">Update Profile</button>
+                        <button type="submit" name="update_profile">Update Profile</button>
+                    </form>
+                </div>
+                <!-- Add post -->
+                <div class="add-post-section">
+                    <h3>Add Post</h3>
+                    <form method="post" enctype="multipart/form-data" name="add_post_form" action="POSTS/Handel_Posts.php">
+                        <textarea rows="4" name="content" placeholder="Write your post here..." required></textarea>
+                        <button class="add-post-btn" type="submit" name="add_post" value="add_post">Add Post</button>
                     </form>
                 </div>
 
-                <form method="post" enctype="multipart/form-data" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <input type="file" name="files" id="files">
-                    <button type="submit" name="upload" style="margin-top: 10px;">Upload</button>
-                    <?php if (isset($success_message)) { ?>
-                        <p class="upload-message success"><?php echo $success_message; ?></p>
-                    <?php } ?>
-                    <?php if (isset($error_message)) { ?>
-                        <p class="upload-message error"><?php echo $error_message; ?></p>
-                    <?php } ?>
+                <!-- view my posts -->
+                <div class="view-post-section">
+                    <h3>View Posts</h3>
+                    <form method="post" enctype="multipart/form-data" name="view_post_form" action="user_posts.php?id=<?php echo $_SESSION['user_id']; ?>">
+                        <button class="view-post-btn" type="submit" name="view_post" value="view_post">View My Posts</button>
+                    </form>
+                    <form method="post" enctype="multipart/form-data" name="home_form" action="POSTS/Home.php">
+                        <button class="home-btn" type="submit" name="home" value="home">Home</button>
+                    </form>
+                </div>
 
-                </form>
             </div>
             <div class="profile-actions">
                 <a class="logout-btn" href="../logout.php">Logout</a>
-                <a class="user-list-btn" href="users_list.php" style="display: inline-block; padding: 15px 40px; background-color: rgba(52, 152, 219, 0.9); color: white; text-decoration: none; border-radius: 10px; font-weight: 500; border: 1px solid rgba(255, 255, 255, 0.1); margin-left: 10px;">User List</a>
+                <a class="user-list-btn" href="users_list.php">User List</a>
             </div>
             <?php
             if ($_SESSION['is_admin'] == 1) {
-                echo "<div style='text-align: center; margin-top: 20px; '>";
-                echo "<a style='text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 5px; ' href='../admin/admin_panal.php'>Admin Panel</a>";
+                echo "<div class='admin-panel-link'>";
+                echo "<a href='../admin/admin_panal.php'>Admin Panel</a>";
                 echo "</div>";
             }
             ?>
